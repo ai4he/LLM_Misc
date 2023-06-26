@@ -1,1 +1,100 @@
-OK
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Slide Creator</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .full-height {
+      height: 90vh;
+    }
+    .panel {
+      height: 100%;
+      border-radius: 10px;
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      display: flex;
+      flex-direction: column;
+    }
+    .title {
+      border-bottom: 1px solid #dee2e6;
+      padding: 10px;
+      background-color: #e9ecef;
+    }
+    .textarea-container {
+      flex-grow: 1;
+      margin-bottom: 10px;
+    }
+    .textarea-container textarea {
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <!-- Title -->
+    <h1 class="text-center my-4">Slides generator</h1>
+    <div class="full-height">
+      <div class="row h-100">
+        
+        <!-- Left Panel -->
+        <div class="col-6 h-100 p-3">
+          <div class="panel">
+            
+            <!-- Title Subpanel -->
+            <div class="title">
+              <label for="title" class="form-label m-0">Title</label>
+            </div>
+            <input type="text" class="form-control mb-3" id="title">
+            
+            <!-- Format Subpanel -->
+            <div class="title">
+              <label for="format" class="form-label m-0">Format</label>
+            </div>
+            <div class="textarea-container">
+              <textarea class="form-control" id="format"></textarea>
+            </div>
+            
+            <!-- Topics Subpanel -->
+            <div class="title">
+              <label for="topics" class="form-label m-0">Topics</label>
+            </div>
+            <div class="textarea-container">
+              <textarea class="form-control" id="topics"></textarea>
+            </div>
+            
+            <!-- Submit Button -->
+            <button class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+  
+        <!-- Right Panel -->
+        <div class="col-6 h-100 p-3">
+          <div class="panel">
+            
+            <!-- Slides JSON Content Subpanel -->
+            <div class="title">
+              <label for="json" class="form-label m-0">Slides JSON Content</label>
+            </div>
+            <div class="textarea-container">
+              <textarea class="form-control" id="json"></textarea>
+            </div>
+            
+            <!-- Status Subpanel -->
+            <div class="title">
+              <label for="status" class="form-label m-0">Status</label>
+            </div>
+            <div class="textarea-container">
+              <textarea class="form-control" id="status"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
