@@ -1,1 +1,63 @@
-
+{
+    "context": "You are required to generate the content of the slides for a full course. In order to achieve that, you MUST always follow the following steps:",
+    "states": {
+        "GET_COURSE_TITLE":
+        {
+            "system": "The user will give you the course title.",
+            "user": "Human-Centered Artificial Intelligence.",
+            "type": "text",
+            "direction": "input",
+            "state": "init"
+        },
+        "GET_COURSE_TOPICS":
+          {
+              "system": "The user will give you a list of some of the desired topics to cover.",
+              "user": "General Introduction, Introduction to Human-Centered Computing, Research Methods in HCC, Introduction to Artificial Intelligence, Research Methods in AI, Introduction to Human-Centered AI, Research Methods in HCAI, Automatic Decision-Making, Algorithmic Bias, Collective Intelligence, Hybrid Intelligence, Augment Human Capabilities, Active Learning, Human-AI Teaming, Explainable AI, Trustworthy AI, Robustness of AI, AI Fairness, AI Alignment, AI Empowerment, Reinforcement Learning from Human Feedback, Intelligent User Interfaces, Human-Robot Interaction, AI Ethics, AI & Creativity, AI & The Future of Work, AI & Mixed Reality, AI for Social Good, AI for Business, AI in Government, AI in Healthcare, High Impact AI.",
+              "type": "text",
+              "direction": "input",
+              "state": "init"
+          },
+          "GET_COURSE_STRUCTURE":
+          {
+              "system": "The user will give you the instructional settings.",
+              "user": "It will be a 16-week course with two sessions a week of 1 hour and 15 minutes each. The course is at the doctorate level and must contain the most updated information and the latest discoveries available. Each session's presentation must include 30 slides.",
+              "type": "text",
+              "direction": "input",
+              "state": "init"
+          },
+          "GET_SLIDE_JSON_FORMAT":
+          {
+              "system": "You will get the structure of the slide to return in JSON format.",
+              "user": "Regardless of whether you generated the content or obtained it from the Internet, you must structure your response using the following JSON format. For each slide, give me the structure in JSON format as a slide object. The slide object must contain the following keys; session_id (integer), slide_id (integer), session_title (string), slide_title (string), slide_first_paragraph (string), slide_bullet_points (array of string), references (array of string), slide_images (array of image_object). Each image_object must include the following keys; image_type (string, "picture" or "diagram"), and image_description (string). Your response must contain only the JSON string enclosed in markdown with no text before or after the JSON string. Ensure that the JSON is valid and that you escape multiple levels of nested quotes by using double quotes, single quotes, and their escaped counterparts \" and \' if needed.",
+              "type": "text",
+              "direction": "input",
+              "state": "init"
+          },
+          "GET_SESSION_NUMBER":
+          {
+              "system": "You will get the session to which you have to generate the slides.",
+              "user": "1",
+              "type": "text",
+              "direction": "input",
+              "state": "main",
+              "overwrite": "true"
+          },
+          "GET_SLIDE_NUMBER":
+          {
+              "system": "You will get the slide number to generate",
+              "user": "1",
+              "type": "text",
+              "direction": "input",
+              "state": "main",
+              "overwrite": "true"
+          },
+          "GENERATE_SLIDE_JSON":
+          {
+              "system": "You will start generating the requested slide number, only one slide. The slide must contain at least three bullet points with long paragraphs of a minimum of 200 words. Each bullet point must include content heavily based on theory, scientific resources, and real-world implementations. The slide must contain at least the description of a picture or diagram to be generated. You must always follow the JSON format provided at GET_SLIDE_JSON_FORMAT.",
+              "user": "```json\n{\n\t\"session_id\": ",
+              "type": "text",
+              "direction": "output",
+              "state": "main"
+          }
+    }
+}
