@@ -28,36 +28,58 @@
           "GET_SLIDE_JSON_FORMAT":
           {
               "system": "You will get the structure of the slide to return in JSON format.",
-              "user": "Regardless of whether you generated the content or obtained it from the Internet, you must structure your response using the following JSON format. For each slide, give me the structure in JSON format as a slide object. The slide object must contain the following keys; session_id (integer), slide_id (integer), session_title (string), slide_title (string), slide_first_paragraph (string), slide_bullet_points (array of string), references (array of string), slide_images (array of image_object). Each image_object must include the following keys; image_type (string, "picture" or "diagram"), and image_description (string). Your response must contain only the JSON string enclosed in markdown with no text before or after the JSON string. Ensure that the JSON is valid and that you escape multiple levels of nested quotes by using double quotes, single quotes, and their escaped counterparts \" and \' if needed.",
+              "user": "Regardless of whether you generated the content or obtained it from the Internet, you must structure your response using the following JSON format. For each slide, give me the structure in JSON format as a slide object. The slide object must contain the following keys; session_id (integer), slide_id (integer), session_title (string), slide_title (string), slide_first_paragraph (string), slide_bullet_points (array of string), references (array of string), slide_images (array of image_object). Each image_object must include the following keys; image_type (string, 'picture' or 'diagram'), and image_description (string). Your response must contain only the JSON string enclosed in markdown with no text before or after the JSON string. Ensure that the JSON is valid and that you escape multiple levels of nested quotes by using double quotes, single quotes, and their escaped counterparts \" and \' if needed.",
               "type": "text",
               "direction": "input",
               "state": "init"
           },
+          "GET_CONTENT_PORTION":
+          {
+              "system": "You will get from the user the portion of the content to generate.",
+              "user": "",
+              "type": "text",
+              "direction": "input",
+              "state": "main"
+          },
           "GET_SESSION_NUMBER":
           {
               "system": "You will get the session to which you have to generate the slides.",
-              "user": "1",
+              "user": "",
               "type": "text",
-              "direction": "input",
-              "state": "main",
-              "overwrite": "true"
+              "direction": "output",
+              "state": "main"
           },
           "GET_SLIDE_NUMBER":
           {
               "system": "You will get the slide number to generate",
-              "user": "1",
+              "user": "",
               "type": "text",
-              "direction": "input",
-              "state": "main",
-              "overwrite": "true"
+              "direction": "output",
+              "state": "main"
           },
           "GENERATE_SLIDE_JSON":
           {
               "system": "You will start generating the requested slide number, only one slide. The slide must contain at least three bullet points with long paragraphs of a minimum of 200 words. Each bullet point must include content heavily based on theory, scientific resources, and real-world implementations. The slide must contain at least the description of a picture or diagram to be generated. You must always follow the JSON format provided at GET_SLIDE_JSON_FORMAT.",
-              "user": "```json\n{\n\t\"session_id\": ",
-              "type": "text",
+              "user": "",
+              "type": "object",
               "direction": "output",
               "state": "main"
+          },
+          "NEXT_ITERATION_JSON":
+          {
+              "system": "You will jump to GET_SESSION_NUMBER or GET_SLIDE_NUMBER until you finish all slide and session numbers; otherwise you will jump to END_SESSION. The output of this step must be in JSON format. The JSON object has the following keys: next_step (string), next_session (integer), and next_slide (integer). Then you will jump to your proposed step.",
+              "user": "",
+              "type": "object",
+              "direction": "loop",
+              "state": "main"
+          },
+          "END_SESSION":
+          {
+              "system": "You will end the session.",
+              "user": "",
+              "type": "text",
+              "direction": "end",
+              "state": "end"
           }
     }
 }
