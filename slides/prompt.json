@@ -43,7 +43,7 @@
           },
           "GET_SESSION_NUMBER":
           {
-              "system": "You will get the session to which you have to generate the slides.",
+              "system": "You will assign the session to which you have to generate the slides.",
               "user": "",
               "type": "text",
               "direction": "output",
@@ -51,7 +51,7 @@
           },
           "GET_SLIDE_NUMBER":
           {
-              "system": "You will get the slide number to generate",
+              "system": "You will assign the slide number to generate",
               "user": "",
               "type": "text",
               "direction": "output",
