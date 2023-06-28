@@ -139,6 +139,13 @@
             $("#loading-icon").hide();
         }
     }
+
+    $(document).ready(function() {
+        $('#submit-button').click(function() {
+            var contentPortion = $('#GET_CONTENT_PORTION').val();
+            submitForm(contentPortion);
+        });
+    });
   </script>
 </body>
 </html>
