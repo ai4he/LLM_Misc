@@ -103,5 +103,42 @@
       </div>
     </div>
   </div>
+  <div id="output"></div>
+
+  <script>
+    var session_id = '';
+
+    async function submitForm(input_val) {
+        $("#loading-icon").show(); 
+        var outputDiv = document.getElementById('output');
+        
+        const response = await fetch('/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({
+                'session_id': session_id,
+                'input_val': input_val
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            if (data.hasOwnProperty('session_id')) {
+                session_id = data.session_id;
+                if (data.hasOwnProperty('sections')) {
+                    if (data.sections.hasOwnProperty('GENERATE_SLIDE_JSON')) {
+                        $("#json").val(data.sections.GENERATE_SLIDE_JSON);
+                    }
+                }
+            }
+            $("#loading-icon").hide();
+        } else {
+            outputDiv.innerHTML = '<p>An error occurred while submitting the form.</p>';
+            $("#loading-icon").hide();
+        }
+    }
+  </script>
 </body>
 </html>
