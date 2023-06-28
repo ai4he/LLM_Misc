@@ -39,7 +39,7 @@
               "user": "",
               "type": "text",
               "direction": "input",
-              "state": "main"
+              "state": "init"
           },
           "GET_SESSION_NUMBER":
           {
@@ -47,7 +47,7 @@
               "user": "",
               "type": "text",
               "direction": "output",
-              "state": "main"
+              "state": "init"
           },
           "GET_SLIDE_NUMBER":
           {
@@ -55,7 +55,7 @@
               "user": "",
               "type": "text",
               "direction": "output",
-              "state": "main"
+              "state": "init"
           },
           "GENERATE_SLIDE_JSON":
           {
@@ -63,7 +63,7 @@
               "user": "",
               "type": "object",
               "direction": "output",
-              "state": "main"
+              "state": "init"
           },
           "NEXT_ITERATION_JSON":
           {
@@ -71,7 +71,7 @@
               "user": "",
               "type": "object",
               "direction": "loop",
-              "state": "main"
+              "state": "init"
           },
           "END_SESSION":
           {
