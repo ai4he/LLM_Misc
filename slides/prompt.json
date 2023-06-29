@@ -67,7 +67,7 @@
           },
           "NEXT_ITERATION_JSON":
           {
-              "system": "You will jump to GET_SESSION_NUMBER or GET_SLIDE_NUMBER until you finish all slide and session numbers; otherwise you will jump to END_SESSION. The output of this step must be in JSON format. The JSON object has the following keys: next_step (string), next_session (integer), and next_slide (integer). Then you will jump to your proposed step.",
+              "system": "You will jump to GET_SESSION_NUMBER until you finish all slide and session numbers; otherwise you will jump to END_SESSION. The output of this step must be in JSON format. The JSON object has the following keys: next_step (string), next_session (integer), and next_slide (integer). Then you will jump to your proposed step.",
               "user": "",
               "type": "object",
               "direction": "loop",
