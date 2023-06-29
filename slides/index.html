@@ -117,10 +117,10 @@
             'input_val': input_val
         }
         if (typeof stream !== "undefined" && stream) {
-          var wordStream = '';
-          var paragraphStream = '';
-          var statusLabel = '';
-          var params = (new URLSearchParams(submitParams)).toString();
+          let wordStream = '';
+          let paragraphStream = '';
+          let statusLabel = '';
+          let params = (new URLSearchParams(submitParams)).toString();
           const url = '/?stream=true';
           if (params) {
             url += '&' + params;
@@ -133,11 +133,13 @@
           };
   
           eventSource.addEventListener('end_paragraph', function(event) {
+              console.log(event);
               paragraphStream += wordStream + '\n';
               wordStream = '';
           });
   
           eventSource.addEventListener('finished', function(event) {
+              console.log(event);
               statusLabel = event.data;
               eventSource.close();
           });
@@ -153,13 +155,23 @@
   
           if (response.ok) {
               const data = await response.json();
-              processData(data);
+              handleData(data);
               $("#loading-icon").hide();
           } else {
               outputDiv.innerHTML = '<p>An error occurred while submitting the form.</p>';
               $("#loading-icon").hide();
           } 
         }
+    }
+
+    function handleData(data) {
+      if (data.hasOwnProperty('interState')) {
+        if (data.interState = 'finished') {
+          processData(data);
+        }
+      } else {
+        processData(data);
+      }
     }
 
     function processData(data) {
