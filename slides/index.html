@@ -108,37 +108,69 @@
   <script>
     var session_id = '';
 
-    async function submitForm(input_val) {
+    async function submitForm(input_val, stream=false) {
         $("#output").html('Processing...'); 
         $("#loading-icon").show(); 
         var outputDiv = document.getElementById('output');
-        
-        const response = await fetch('/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams({
-                'session_id': session_id,
-                'input_val': input_val
-            })
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            if (data.hasOwnProperty('session_id')) {
-                session_id = data.session_id;
-                if (data.hasOwnProperty('sections')) {
-                    if (data.sections.hasOwnProperty('GENERATE_SLIDE_JSON')) {
-                        $("#json").val(data.sections.GENERATE_SLIDE_JSON);
-                    }
-                }
-            }
-            $("#loading-icon").hide();
-        } else {
-            outputDiv.innerHTML = '<p>An error occurred while submitting the form.</p>';
-            $("#loading-icon").hide();
+        var submitParams = {
+            'session_id': session_id,
+            'input_val': input_val
         }
+        if (typeof stream !== "undefined" && stream) {
+          var wordStream = '';
+          var paragraphStream = '';
+          var statusLabel = '';
+          var params = (new URLSearchParams(submitParams)).toString();
+          const url = '/?stream=true';
+          if (params) {
+            url += '&' + params;
+          }
+          const eventSource = new EventSource(url);
+  
+          eventSource.onmessage = function(event) {
+              wordStream += event.data + ' ';
+              outputDiv.textContent = wordStream;
+          };
+  
+          eventSource.addEventListener('end_paragraph', function(event) {
+              paragraphStream += wordStream + '\n';
+              wordStream = '';
+          });
+  
+          eventSource.addEventListener('finished', function(event) {
+              statusLabel = event.data;
+              eventSource.close();
+          });
+        }
+        else {
+          const response = await fetch('/', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              body: new URLSearchParams(submitParams)
+          });
+  
+          if (response.ok) {
+              const data = await response.json();
+              processData(data);
+              $("#loading-icon").hide();
+          } else {
+              outputDiv.innerHTML = '<p>An error occurred while submitting the form.</p>';
+              $("#loading-icon").hide();
+          } 
+        }
+    }
+
+    function processData(data) {
+      if (data.hasOwnProperty('session_id')) {
+          session_id = data.session_id;
+          if (data.hasOwnProperty('sections')) {
+              if (data.sections.hasOwnProperty('GENERATE_SLIDE_JSON')) {
+                  $("#json").val(data.sections.GENERATE_SLIDE_JSON);
+              }
+          }
+      }
     }
 
     $(document).ready(function() {
