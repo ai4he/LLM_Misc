@@ -121,7 +121,7 @@
           let paragraphStream = '';
           let statusLabel = '';
           let params = (new URLSearchParams(submitParams)).toString();
-          const url = '/?stream=true';
+          let url = '/?stream=true';
           if (params) {
             url += '&' + params;
           }
